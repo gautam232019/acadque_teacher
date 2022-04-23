@@ -83,12 +83,12 @@ class TutoringScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(20),
                     child: SvgPicture.asset(
                       'assets/svg/person.svg',
-                      color: state.bottomIndex == 1
+                      color: state.bottomIndex == 2
                           ? const Color(0xFF59AEFD)
                           : const Color(0xFFA6A6A6),
                     ),
                   ),
-                  label: "ask",
+                  label: "profile",
                 ),
               ],
               currentIndex: selectedIndex,
