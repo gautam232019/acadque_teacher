@@ -4,6 +4,8 @@ import 'package:acadque_teacher/modules/register/register_screen.dart';
 import 'package:acadque_teacher/modules/register/register_state.dart';
 import 'package:acadque_teacher/modules/splash/splash_screen.dart';
 import 'package:acadque_teacher/modules/splash/splash_state.dart';
+import 'package:acadque_teacher/modules/tutoring_screen/tutoring_screen.dart';
+import 'package:acadque_teacher/modules/tutoring_screen/tutoring_state.dart';
 import 'package:acadque_teacher/modules/welcome_screen/welcome_screen.dart';
 import 'package:acadque_teacher/modules/welcome_screen/welcome_state.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,10 @@ class App extends StatelessWidget {
           '/welcome': (context) => ChangeNotifierProvider(
                 create: (_) => WelcomeState(),
                 child: const WelcomeScreen(),
+              ),
+          '/tutoring': (context) => ChangeNotifierProvider(
+                create: (_) => TutoringState(),
+                child: const TutoringScreen(),
               ),
         },
         initialRoute: '/splash',

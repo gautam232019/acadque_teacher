@@ -123,7 +123,6 @@ class WelcomeScreen extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                // SvgPicture.asset('assets/svg/question.svg'),
                                 SizedBox(
                                   height: 80,
                                   width: 80,
@@ -146,10 +145,7 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            // context,
-                            // MaterialPageRoute(
-                            // builder: (context) => TutorScreen()));
+                            Navigator.pushNamed(context, "/tutoring");
                           },
                           child: Container(
                             decoration: BoxDecoration(
