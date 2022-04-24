@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:acadque_teacher/common/constrants/app_theme.dart';
 import 'package:acadque_teacher/common/ui/divider_line.dart';
 import 'package:acadque_teacher/common/ui/profile_row.dart';
 import 'package:acadque_teacher/common/ui/ui_helpers.dart';
@@ -5,7 +8,10 @@ import 'package:acadque_teacher/common/utils/colors_util.dart';
 import 'package:acadque_teacher/modules/profile/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
+
+final multiSelectKey = GlobalKey<FormFieldState>();
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,6 +19,122 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ProfileState>(context);
+
+    onTextEdit(String field, String value) {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Edit'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  TextFormField(
+                    initialValue: value,
+                    onChanged: (val) {
+                      state.onChange(field, val);
+                    },
+                    decoration: InputDecoration(
+                      hintText: '',
+                      label: Text(field.toUpperCase()),
+                      hintStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 17.5,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold),
+                      labelStyle: const TextStyle(
+                          color: Color(0xFFA1A1A1),
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  state.onSubmit(field);
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    onSubjectEdit(String field, String value) {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Edit'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(
+                    field.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  sHeightSpan,
+                  // MultiSelectDialogField(
+                  //   key: multiSelectKey,
+                  //   buttonIcon: const Icon(
+                  //     Icons.arrow_drop_down,
+                  //     color: darkGrey,
+                  //   ),
+                  //   decoration: BoxDecoration(
+                  //     border: Border.all(color: darkGrey),
+                  //   ),
+                  //   selectedColor: primaryColor,
+                  //   selectedItemsTextStyle: TextStyle(
+                  //     fontSize: 12,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Colors.white,
+                  //   ),
+                  //   itemsTextStyle: TextStyle(fontSize: 10),
+                  //   items: item.possibleValues!.map((value) {
+                  //     return MultiSelectItem(value, value);
+                  //   }).toList(),
+                  //   listType: MultiSelectListType.CHIP,
+                  //   searchable: true,
+                  //   initialValue: state.form['${item.field}'],
+                  //   onConfirm: (values) {
+                  //     state.onChange(item.field!, values.toList());
+                  //   },
+                  //   chipDisplay: MultiSelectChipDisplay(),
+                  //   buttonText: Text(
+                  //     'Select ${item.display!}',
+                  //     style: const TextStyle(
+                  //       fontSize: 12,
+                  //       color: darkGrey,
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  state.onSubmit(field);
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -42,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Expanded(
+              Container(
                 child: state.loading
                     ? Column(
                         children: const [
@@ -92,40 +214,56 @@ class ProfileScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 12,
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.white),
-                                      child: Center(
-                                          child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Text(
-                                              'Your Rate',
-                                              style: TextStyle(
-                                                  color: colorPrimary,
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              '${state.teacherProfileState!.data!.teacher!.hourlyRate!.toString()}  / hr',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                                  fontFamily: 'Roboto',
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
+                                    InkWell(
+                                      onTap: () {
+                                        state.onChange(
+                                            'hourlyRate',
+                                            state.teacherProfileState!.data!
+                                                .teacher!.hourlyRate!
+                                                .toString());
+                                        onTextEdit(
+                                            'hourlyRate',
+                                            state.teacherProfileState!.data!
+                                                .teacher!.hourlyRate!
+                                                .toString());
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Colors.white),
+                                        child: Center(
+                                            child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 8),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                'Your Rate',
+                                                style: TextStyle(
+                                                    color: colorPrimary,
+                                                    fontSize: 8,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                '${state.teacherProfileState!.data!.teacher!.hourlyRate!.toString()}  / hr',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                    fontFamily: 'Roboto',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                      ),
                                     )
                                   ],
                                 )
@@ -152,12 +290,24 @@ class ProfileScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  ProfileRow(
-                                    iconPath:
-                                        'assets/svg/profile/name_icon.svg',
-                                    title: 'Name',
-                                    value: state.teacherProfileState!.data!
-                                        .teacher!.name!,
+                                  InkWell(
+                                    onTap: () {
+                                      state.onChange(
+                                          'name',
+                                          state.teacherProfileState!.data!
+                                              .teacher!.name!);
+                                      onTextEdit(
+                                          'name',
+                                          state.teacherProfileState!.data!
+                                              .teacher!.name!);
+                                    },
+                                    child: ProfileRow(
+                                      iconPath:
+                                          'assets/svg/profile/name_icon.svg',
+                                      title: 'Name',
+                                      value: state.teacherProfileState!.data!
+                                          .teacher!.name!,
+                                    ),
                                   ),
                                   DividerLine(),
                                   ProfileRow(
