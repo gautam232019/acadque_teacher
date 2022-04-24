@@ -181,26 +181,110 @@ class ProfileScreen extends StatelessWidget {
                             height: 115,
                             width: 326,
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Stack(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/svg/profile/image_thumbnail.svg',
-                                      height: 110,
-                                      width: 110,
-                                      color: Colors.white,
-                                    ),
-                                    Positioned(
-                                        top: 75,
-                                        left: 40,
+                                InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return SizedBox(
+                                            height: 200,
+                                            child: Column(
+                                              children: [
+                                                sHeightSpan,
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: const [
+                                                    Text(
+                                                      "Choose one",
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const Divider(),
+                                                sHeightSpan,
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        state.pickFromCamera(
+                                                            context);
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.camera,
+                                                        size: 80,
+                                                      ),
+                                                    ),
+                                                    sWidthSpan,
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        state.pickFromGallery(
+                                                            context);
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.photo_album,
+                                                        size: 80,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      if (state.teacherProfileState!.data!
+                                          .teacher!.profileURL!.isNotEmpty)
+                                        Container(
+                                          height: 80,
+                                          width: 80,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: Image.network(
+                                              state.teacherProfileState!.data!
+                                                  .teacher!.profileURL!,
+                                              fit: BoxFit.cover,
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.transparent,
+                                          ),
+                                        )
+                                      else
+                                        SvgPicture.asset(
+                                          'assets/svg/profile/image_thumbnail.svg',
+                                          height: 110,
+                                          width: 110,
+                                          color: Colors.white,
+                                        ),
+                                      Positioned(
+                                        top: 52,
+                                        left: 25,
                                         child: SvgPicture.asset(
-                                            'assets/svg/camera_icon.svg'))
-                                  ],
+                                            'assets/svg/camera_icon.svg'),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
                                       state.teacherProfileState!.data!.teacher!
@@ -309,6 +393,8 @@ class ProfileScreen extends StatelessWidget {
                                           .teacher!.name!,
                                     ),
                                   ),
+                                  SvgPicture.asset(
+                                      "assets/svg/profile/subject_icon.svg"),
                                   DividerLine(),
                                   ProfileRow(
                                     iconPath:

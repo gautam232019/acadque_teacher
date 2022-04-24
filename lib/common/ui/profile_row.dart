@@ -21,7 +21,7 @@ class ProfileRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            SvgPicture.asset(iconPath),
+            new SvgPicture.asset(iconPath),
             SizedBox(
               width: 12,
             ),

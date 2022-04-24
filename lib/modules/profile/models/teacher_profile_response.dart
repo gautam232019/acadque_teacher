@@ -56,6 +56,7 @@ class Teacher {
   String? description;
   Experience? experience;
   num? students;
+  String? profileURL;
 
   Teacher(
       {this.sId,
@@ -74,7 +75,8 @@ class Teacher {
       this.createdAt,
       this.description,
       this.experience,
-      this.students});
+      this.students,
+      this.profileURL});
 
   Teacher.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -101,6 +103,7 @@ class Teacher {
         ? new Experience.fromJson(json['experience'])
         : null;
     students = json['students'];
+    profileURL = json['profileURL'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -126,6 +129,7 @@ class Teacher {
       data['experience'] = this.experience!.toJson();
     }
     data['students'] = this.students;
+    data['profileURL'] = this.profileURL;
     return data;
   }
 }
