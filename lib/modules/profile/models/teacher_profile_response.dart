@@ -90,6 +90,8 @@ class Teacher {
       json['subjects'].forEach((v) {
         subjects!.add(new Subjects.fromJson(v));
       });
+    } else {
+      subjects = [];
     }
     hourlyRate = json['hourlyRate'];
     minuteRate = json['minuteRate'];

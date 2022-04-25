@@ -418,11 +418,62 @@ class ProfileScreen extends StatelessWidget {
                                     value: "98156024409",
                                   ),
                                   DividerLine(),
-                                  const ProfileRow(
-                                    iconPath:
-                                        'assets/svg/profile/subject_icon.svg',
-                                    title: 'Your Speciality',
-                                    value: 'Subject Name',
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              "assets/svg/profile/subject_icon.svg"),
+                                          SizedBox(
+                                            width: 12,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Your Speciality",
+                                                style: TextStyle(
+                                                  color: Color(0xFFA1A1A1),
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 12,
+                                                  fontFamily: 'Roboto',
+                                                ),
+                                              ),
+                                              if (state
+                                                  .teacherProfileState!
+                                                  .data!
+                                                  .teacher!
+                                                  .subjects!
+                                                  .isNotEmpty)
+                                                Column(
+                                                  children: state
+                                                      .teacherProfileState!
+                                                      .data!
+                                                      .teacher!
+                                                      .subjects!
+                                                      .map((e) => Column(
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Text(e.name!),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ))
+                                                      .toList(),
+                                                )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      SvgPicture.asset(
+                                        'assets/svg/arrow_front.svg',
+                                        color: colorBox,
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),

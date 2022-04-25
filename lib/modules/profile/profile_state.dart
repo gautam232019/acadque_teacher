@@ -4,6 +4,7 @@ import 'package:acadque_teacher/core/http/http.dart';
 import 'package:acadque_teacher/core/services/local_storage_service.dart';
 import 'package:acadque_teacher/core/services/toast_service.dart';
 import 'package:acadque_teacher/core/state/base_state.dart';
+import 'package:acadque_teacher/modules/profile/models/subject_response.dart';
 import 'package:acadque_teacher/modules/profile/models/teacher_profile_response.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,10 +37,10 @@ class ProfileState extends BaseState {
       final response = await dio.get("/teachers/$id");
       teacherProfileState = TeacherProfileResponse.fromJson(response.data);
       notifyListeners();
+      fetchSubjects();
     }
     // ignore: empty_catches
     catch (err) {}
-    setLoading(false);
   }
 
   onSubmit(field) async {
@@ -105,5 +106,17 @@ class ProfileState extends BaseState {
       fetchTeacherProfile();
       // ignore: empty_catches
     } catch (err) {}
+  }
+
+  SubjectResponse? subjectState;
+
+  fetchSubjects() async {
+    try {
+      final response = await dio.get("/subjects");
+      subjectState = SubjectResponse.fromJson(response.data);
+      notifyListeners();
+      // ignore: empty_catches
+    } catch (err) {}
+    setLoading(false);
   }
 }
