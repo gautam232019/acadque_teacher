@@ -393,8 +393,6 @@ class ProfileScreen extends StatelessWidget {
                                           .teacher!.name!,
                                     ),
                                   ),
-                                  SvgPicture.asset(
-                                      "assets/svg/profile/subject_icon.svg"),
                                   DividerLine(),
                                   ProfileRow(
                                     iconPath:
@@ -464,6 +462,15 @@ class ProfileScreen extends StatelessWidget {
                                                             ],
                                                           ))
                                                       .toList(),
+                                                )
+                                              else
+                                                Text(
+                                                  "No Subjects",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Roboto',
+                                                  ),
                                                 )
                                             ],
                                           )

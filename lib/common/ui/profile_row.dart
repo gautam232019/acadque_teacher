@@ -30,7 +30,7 @@ class ProfileRow extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFFA1A1A1),
                     fontWeight: FontWeight.normal,
                     fontSize: 12,
