@@ -37,10 +37,28 @@ class ProfileState extends BaseState {
       final response = await dio.get("/teachers/$id");
       teacherProfileState = TeacherProfileResponse.fromJson(response.data);
       notifyListeners();
+      List<String> teacherSubjects = [];
+      for (var element in teacherProfileState!.data!.teacher!.subjects!) {
+        teacherSubjects.add(element.sId!);
+      }
+      if (teacherSubjects.isNotEmpty) onChange("subjects", teacherSubjects);
       fetchSubjects();
     }
     // ignore: empty_catches
     catch (err) {}
+  }
+
+  onSubjectEdit() async {
+    try {
+      Map<String, dynamic> user = Jwt.parseJwt(token!);
+      id = user["userId"] as String;
+      await dio.patch(
+          "https://api-acadque.herokuapp.com/api/v1/teachers/$id/subjects",
+          data: form);
+      ToastService().s("Successfully updated!");
+      fetchTeacherProfile();
+      // ignore: empty_catches
+    } catch (err) {}
   }
 
   onSubmit(field) async {

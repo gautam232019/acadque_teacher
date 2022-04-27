@@ -5,6 +5,7 @@ import 'package:acadque_teacher/common/ui/divider_line.dart';
 import 'package:acadque_teacher/common/ui/profile_row.dart';
 import 'package:acadque_teacher/common/ui/ui_helpers.dart';
 import 'package:acadque_teacher/common/utils/colors_util.dart';
+import 'package:acadque_teacher/modules/profile/models/teacher_profile_response.dart';
 import 'package:acadque_teacher/modules/profile/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -67,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
-    onSubjectEdit(String field, String value) {
+    onSubjectEdit(String field, List<Subjects> value) {
       return showDialog<bool>(
         context: context,
         barrierDismissible: true, // user must tap button!
@@ -85,40 +86,40 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   sHeightSpan,
-                  // MultiSelectDialogField(
-                  //   key: multiSelectKey,
-                  //   buttonIcon: const Icon(
-                  //     Icons.arrow_drop_down,
-                  //     color: darkGrey,
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     border: Border.all(color: darkGrey),
-                  //   ),
-                  //   selectedColor: primaryColor,
-                  //   selectedItemsTextStyle: TextStyle(
-                  //     fontSize: 12,
-                  //     fontWeight: FontWeight.bold,
-                  //     color: Colors.white,
-                  //   ),
-                  //   itemsTextStyle: TextStyle(fontSize: 10),
-                  //   items: item.possibleValues!.map((value) {
-                  //     return MultiSelectItem(value, value);
-                  //   }).toList(),
-                  //   listType: MultiSelectListType.CHIP,
-                  //   searchable: true,
-                  //   initialValue: state.form['${item.field}'],
-                  //   onConfirm: (values) {
-                  //     state.onChange(item.field!, values.toList());
-                  //   },
-                  //   chipDisplay: MultiSelectChipDisplay(),
-                  //   buttonText: Text(
-                  //     'Select ${item.display!}',
-                  //     style: const TextStyle(
-                  //       fontSize: 12,
-                  //       color: darkGrey,
-                  //     ),
-                  //   ),
-                  // ),
+                  MultiSelectDialogField(
+                    key: multiSelectKey,
+                    buttonIcon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: darkGrey,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: darkGrey),
+                    ),
+                    selectedColor: primaryColor,
+                    selectedItemsTextStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    itemsTextStyle: TextStyle(fontSize: 10),
+                    items: state.subjectState!.data!.subjects!.map((value) {
+                      return MultiSelectItem(value.sId, value.name!);
+                    }).toList(),
+                    listType: MultiSelectListType.CHIP,
+                    searchable: true,
+                    initialValue: state.form[field],
+                    onConfirm: (values) {
+                      state.onChange(field, values.toList());
+                    },
+                    chipDisplay: MultiSelectChipDisplay(),
+                    buttonText: Text(
+                      'Select subjects',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: darkGrey,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -126,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
               TextButton(
                 child: const Text('Update'),
                 onPressed: () {
-                  state.onSubmit(field);
+                  state.onSubjectEdit();
                   Navigator.of(context).pop(true);
                 },
               ),
@@ -416,71 +417,85 @@ class ProfileScreen extends StatelessWidget {
                                     value: "98156024409",
                                   ),
                                   DividerLine(),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              "assets/svg/profile/subject_icon.svg"),
-                                          SizedBox(
-                                            width: 12,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Your Speciality",
-                                                style: TextStyle(
-                                                  color: Color(0xFFA1A1A1),
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 12,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              if (state
-                                                  .teacherProfileState!
-                                                  .data!
-                                                  .teacher!
-                                                  .subjects!
-                                                  .isNotEmpty)
-                                                Column(
-                                                  children: state
-                                                      .teacherProfileState!
-                                                      .data!
-                                                      .teacher!
-                                                      .subjects!
-                                                      .map((e) => Column(
-                                                            children: [
-                                                              Row(
-                                                                children: [
-                                                                  Text(e.name!),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ))
-                                                      .toList(),
-                                                )
-                                              else
+                                  InkWell(
+                                    onTap: () {
+                                      onSubjectEdit(
+                                          'subjects',
+                                          state.teacherProfileState!.data!
+                                              .teacher!.subjects!);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                "assets/svg/profile/subject_icon.svg"),
+                                            SizedBox(
+                                              width: 12,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
                                                 Text(
-                                                  "No Subjects",
+                                                  "Your Speciality",
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14,
+                                                    color: Color(0xFFA1A1A1),
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 12,
                                                     fontFamily: 'Roboto',
                                                   ),
-                                                )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      SvgPicture.asset(
-                                        'assets/svg/arrow_front.svg',
-                                        color: colorBox,
-                                      )
-                                    ],
+                                                ),
+                                                if (state
+                                                    .teacherProfileState!
+                                                    .data!
+                                                    .teacher!
+                                                    .subjects!
+                                                    .isNotEmpty)
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: state
+                                                        .teacherProfileState!
+                                                        .data!
+                                                        .teacher!
+                                                        .subjects!
+                                                        .map((e) => Column(
+                                                              children: [
+                                                                Row(
+                                                                  children: [
+                                                                    Text(e
+                                                                        .name!),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ))
+                                                        .toList(),
+                                                  )
+                                                else
+                                                  Text(
+                                                    "No Subjects",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 14,
+                                                      fontFamily: 'Roboto',
+                                                    ),
+                                                  )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        SvgPicture.asset(
+                                          'assets/svg/arrow_front.svg',
+                                          color: colorBox,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
