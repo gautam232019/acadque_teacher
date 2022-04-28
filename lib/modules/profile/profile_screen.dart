@@ -497,6 +497,16 @@ class ProfileScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
+                                  DividerLine(),
+                                  sHeightSpan,
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      state.onLogout(context);
+                                    },
+                                    child: const Text(
+                                      "Logout",
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),

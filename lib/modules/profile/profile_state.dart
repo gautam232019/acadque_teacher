@@ -7,6 +7,7 @@ import 'package:acadque_teacher/core/state/base_state.dart';
 import 'package:acadque_teacher/modules/profile/models/subject_response.dart';
 import 'package:acadque_teacher/modules/profile/models/teacher_profile_response.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -136,5 +137,31 @@ class ProfileState extends BaseState {
       // ignore: empty_catches
     } catch (err) {}
     setLoading(false);
+  }
+
+  onLogout(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Are you sure you want to logout?'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              TextButton(
+                child: const Text('Ok'),
+                onPressed: () {
+                  LocalStorageService().clear(LocalStorageKeys.accessToken);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (route) => false);
+                },
+              ),
+            ],
+          );
+        });
   }
 }
