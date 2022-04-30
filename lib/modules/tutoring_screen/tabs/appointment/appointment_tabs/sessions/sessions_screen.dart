@@ -1,32 +1,129 @@
-import 'package:acadque_teacher/common/ui/divider_line.dart';
-import 'package:acadque_teacher/common/ui/tutor_profile.dart';
+import 'package:acadque_teacher/common/ui/ui_helpers.dart';
+import 'package:acadque_teacher/common/utils/colors_util.dart';
+import 'package:acadque_teacher/modules/tutoring_screen/tabs/appointment/appointment_tabs/sessions/sessions_state.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:provider/provider.dart';
 
 class SessionScreen extends StatelessWidget {
   const SessionScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<SessionsState>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-      child: Column(
-        children: [
-          TutorProfile(
-            isCompleted: false,
-            name: 'Name 1',
-          ),
-          DividerLine(),
-          TutorProfile(
-            isCompleted: false,
-            name: 'Name 2',
-          ),
-          DividerLine(),
-          TutorProfile(
-            isCompleted: false,
-            name: 'Name 3',
-          ),
-        ],
-      ),
+      child: state.loading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : state.teacherAppointmentState?.data?.appointments?.isEmpty ?? true
+              ? const Center(
+                  child: Text("No Appointments"),
+                )
+              : SingleChildScrollView(
+                  child: Column(
+                    children: state.teacherAppointmentState!.data!.appointments!
+                        .map((e) {
+                      if (e.status != "completed") {
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, "/appointment_detail",
+                                    arguments: {"id": e.sId!});
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xFF33354E),
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        height: 72,
+                                        width: 84,
+                                        child: const Icon(
+                                          Icons.play_arrow_rounded,
+                                          size: 50,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 12,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            '30 Mins Session',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            e.type!,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                              color: Color(0xFFA1A1A1),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "${Jiffy(e.from).format("hh:mm a")} to ${Jiffy(e.to!).format("hh:mm a")}",
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: colorPrimary),
+                                              ),
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              const Text(
+                                                '|',
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: colorPrimary),
+                                              ),
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              Text(
+                                                  Jiffy(e.from)
+                                                      .format("dd MMM yyyy"),
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: colorPrimary))
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            mHeightSpan,
+                          ],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }).toList(),
+                  ),
+                ),
     );
   }
 }
