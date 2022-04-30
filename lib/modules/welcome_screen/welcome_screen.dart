@@ -92,10 +92,7 @@ class WelcomeScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            // context,
-                            // MaterialPageRoute(
-                            // builder: (context) => QuestionScreen()));
+                            Navigator.pushNamed(context, "/available_question");
                           },
                           child: Container(
                             decoration: BoxDecoration(

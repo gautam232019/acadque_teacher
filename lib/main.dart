@@ -1,5 +1,7 @@
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_screen.dart';
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_state.dart';
+import 'package:acadque_teacher/modules/available_question_screen/available_question_screen.dart';
+import 'package:acadque_teacher/modules/available_question_screen/available_question_state.dart';
 import 'package:acadque_teacher/modules/login/login_screen.dart';
 import 'package:acadque_teacher/modules/login/login_state.dart';
 import 'package:acadque_teacher/modules/register/register_screen.dart';
@@ -55,6 +57,10 @@ class App extends StatelessWidget {
           '/appointment_detail': (context) => ChangeNotifierProvider(
                 create: (_) => AppointmentDetailState(context),
                 child: const AppointmentDetailScreen(),
+              ),
+          '/available_question': (context) => ChangeNotifierProvider(
+                create: (_) => AvailableQuestionState(),
+                child: const AvailableQuestionScreen(),
               ),
         },
         initialRoute: '/splash',
