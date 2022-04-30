@@ -1,3 +1,5 @@
+import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_screen.dart';
+import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_state.dart';
 import 'package:acadque_teacher/modules/login/login_screen.dart';
 import 'package:acadque_teacher/modules/login/login_state.dart';
 import 'package:acadque_teacher/modules/register/register_screen.dart';
@@ -49,6 +51,10 @@ class App extends StatelessWidget {
           '/tutoring': (context) => ChangeNotifierProvider(
                 create: (_) => TutoringState(),
                 child: const TutoringScreen(),
+              ),
+          '/appointment_detail': (context) => ChangeNotifierProvider(
+                create: (_) => AppointmentDetailState(context),
+                child: const AppointmentDetailScreen(),
               ),
         },
         initialRoute: '/splash',
