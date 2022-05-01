@@ -1,3 +1,5 @@
+import 'package:acadque_teacher/modules/answer_screen/answer_screen.dart';
+import 'package:acadque_teacher/modules/answer_screen/answer_state.dart';
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_screen.dart';
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_state.dart';
 import 'package:acadque_teacher/modules/available_question_screen/available_question_screen.dart';
@@ -61,6 +63,10 @@ class App extends StatelessWidget {
           '/available_question': (context) => ChangeNotifierProvider(
                 create: (_) => AvailableQuestionState(),
                 child: const AvailableQuestionScreen(),
+              ),
+          '/answer_screen': (context) => ChangeNotifierProvider(
+                create: (_) => AnswerState(context),
+                child: const AnswerScreen(),
               ),
         },
         initialRoute: '/splash',

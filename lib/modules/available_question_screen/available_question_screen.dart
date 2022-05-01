@@ -1,14 +1,10 @@
 import 'package:acadque_teacher/modules/available_question_screen/available_question_state.dart';
-import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/available_question_home.dart';
+import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/available_question_home_screen.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/available_question_home_state.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/teacher_ask_screen/teacher_ask_screen.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/teacher_ask_screen/teacher_ask_state.dart';
 import 'package:acadque_teacher/modules/profile/profile_screen.dart';
 import 'package:acadque_teacher/modules/profile/profile_state.dart';
-import 'package:acadque_teacher/modules/tutoring_screen/tabs/appointment/appointment_screen.dart';
-import 'package:acadque_teacher/modules/tutoring_screen/tabs/appointment/appointment_state.dart';
-import 'package:acadque_teacher/modules/tutoring_screen/tabs/tutor_home/tutor_home_screen.dart';
-import 'package:acadque_teacher/modules/tutoring_screen/tabs/tutor_home/tutor_home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';

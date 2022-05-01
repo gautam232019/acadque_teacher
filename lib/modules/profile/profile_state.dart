@@ -63,6 +63,7 @@ class ProfileState extends BaseState {
   }
 
   onSubmit(field) async {
+    setLoading(true);
     try {
       Map<String, dynamic> user = Jwt.parseJwt(token!);
       id = user["userId"] as String;
