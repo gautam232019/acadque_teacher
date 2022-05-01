@@ -31,7 +31,7 @@ class ConcludedRow extends StatelessWidget {
             height: 103,
             width: 114,
             decoration: BoxDecoration(
-              color: Color(0xFF33354E),
+              color: const Color(0xFF33354E),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -43,9 +43,9 @@ class ConcludedRow extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: colorPrimary),
-                  child: Center(child: Text('Solved')),
+                  child: const Center(child: Text('Solved')),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 )
               ],
@@ -56,25 +56,41 @@ class ConcludedRow extends StatelessWidget {
           ),
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Text(
-                  question,
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Roboto'),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        question,
+                        overflow: TextOverflow.visible,
+                        style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Roboto'),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 4,
                 ),
-                Text(
-                  desc,
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'Roboto',
-                      color: Color(0xFFA1A1A1)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        desc,
+                        overflow: TextOverflow.visible,
+                        style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFFA1A1A1)),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
