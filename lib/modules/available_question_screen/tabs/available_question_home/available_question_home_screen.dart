@@ -4,6 +4,8 @@ import 'package:acadque_teacher/modules/available_question_screen/tabs/available
 import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/tabs/inside_available_question/inside_question_state.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/tabs/inside_available_question_history/inside_question_history_screen.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/tabs/inside_available_question_history/inside_question_history_state.dart';
+import 'package:acadque_teacher/modules/tutoring_screen/tabs/appointment/appointment_tabs/history_screen/tabs/concluded/concluded_screen.dart';
+import 'package:acadque_teacher/modules/tutoring_screen/tabs/appointment/appointment_tabs/history_screen/tabs/concluded/concluded_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -96,8 +98,8 @@ class AvailableQuestionHomeScreen extends StatelessWidget {
                       child: const InsideQuestionScreen(),
                     ),
                     ChangeNotifierProvider(
-                      create: (_) => InsideQuestionHistoryState(),
-                      child: const InsideQuestionHistoryScreen(),
+                      create: (_) => ConcludedState(),
+                      child: const ConcludedScreen(),
                     ),
                   ]),
                 ),

@@ -13,90 +13,79 @@ class ConcludedRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => AnswerScreen(
-        //             name: 'Student Name',
-        //             time: '04:00 PM to 04:30 PM     |     22 Jan 2022',
-        //             isAnswered: true)));
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 103,
-            width: 114,
-            decoration: BoxDecoration(
-              color: const Color(0xFF33354E),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 26,
-                  width: 62,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: colorPrimary),
-                  child: const Center(child: Text('Solved')),
-                ),
-                const SizedBox(
-                  height: 10,
-                )
-              ],
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          height: 103,
+          width: 114,
+          decoration: BoxDecoration(
+            color: const Color(0xFF33354E),
+            borderRadius: BorderRadius.circular(12),
           ),
-          const SizedBox(
-            width: 20,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                height: 26,
+                width: 62,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: colorPrimary),
+                child: const Center(child: Text('Solved')),
+              ),
+              const SizedBox(
+                height: 10,
+              )
+            ],
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        question,
-                        overflow: TextOverflow.visible,
-                        style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Roboto'),
-                      ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      question,
+                      overflow: TextOverflow.visible,
+                      style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto'),
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        desc,
-                        overflow: TextOverflow.visible,
-                        style: const TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Roboto',
-                            color: Color(0xFFA1A1A1)),
-                      ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      desc,
+                      overflow: TextOverflow.visible,
+                      style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Roboto',
+                          color: Color(0xFFA1A1A1)),
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

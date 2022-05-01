@@ -27,14 +27,21 @@ class ConcludedScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: state.answeredQuestionState!.data!.answers!
-                            .map((e) => Column(
-                                  children: [
-                                    ConcludedRow(
-                                      question: e.questionId!.question!,
-                                      desc: e.answer!,
-                                    ),
-                                    DividerLine(),
-                                  ],
+                            .map((e) => InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/answer_screen",
+                                        arguments: {"id": e.questionId!.sId!});
+                                  },
+                                  child: Column(
+                                    children: [
+                                      ConcludedRow(
+                                        question: e.questionId!.question!,
+                                        desc: e.answer!,
+                                      ),
+                                      DividerLine(),
+                                    ],
+                                  ),
                                 ))
                             .toList(),
                       ),
