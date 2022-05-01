@@ -18,6 +18,7 @@ class InsideQuestionState extends BaseState {
   onSubjectChange(val) {
     subject = val;
     notifyListeners();
+    fetchStudentQuestions();
   }
 
   SubjectResponse? subjectState;
@@ -39,7 +40,8 @@ class InsideQuestionState extends BaseState {
     Map<String, dynamic> payload = Jwt.parseJwt(token!);
     final id = payload["userId"];
     try {
-      final response = await dio.get("/teachers/$id/questions");
+      final response = await dio.get(
+          "/teachers/$id/questions${subject != null ? "?subjectId=$subject" : ""}");
       studentQuestionsState = StudentQuestionsResponse.fromJson(response.data);
       // ignore: empty_catches
     } catch (err) {}

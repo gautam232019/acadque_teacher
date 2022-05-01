@@ -64,7 +64,11 @@ class InsideQuestionScreen extends StatelessWidget {
                       ),
                     ),
                     if (state.studentQuestionsState!.data!.questions!.isEmpty)
-                      const Text("No Questions!")
+                      const Expanded(
+                        child: Center(
+                          child: Text("No Questions!"),
+                        ),
+                      )
                     else
                       Expanded(
                         child: SingleChildScrollView(
