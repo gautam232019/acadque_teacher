@@ -302,7 +302,9 @@ class RegisterScreen extends StatelessWidget {
                           color: Color(0xFF919191)),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: SizedBox(
                         height: 48,
                         width: 60,
