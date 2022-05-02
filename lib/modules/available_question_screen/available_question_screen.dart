@@ -1,8 +1,6 @@
 import 'package:acadque_teacher/modules/available_question_screen/available_question_state.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/available_question_home_screen.dart';
 import 'package:acadque_teacher/modules/available_question_screen/tabs/available_question_home/available_question_home_state.dart';
-import 'package:acadque_teacher/modules/available_question_screen/tabs/teacher_ask_screen/teacher_ask_screen.dart';
-import 'package:acadque_teacher/modules/available_question_screen/tabs/teacher_ask_screen/teacher_ask_state.dart';
 import 'package:acadque_teacher/modules/profile/profile_screen.dart';
 import 'package:acadque_teacher/modules/profile/profile_state.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +19,6 @@ class AvailableQuestionScreen extends StatelessWidget {
       ChangeNotifierProvider(
         create: (_) => AvailableQuestionHomeState(),
         child: const AvailableQuestionHomeScreen(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => TeacherAskState(),
-        child: const TeacherAskScreen(),
       ),
       ChangeNotifierProvider(
         create: (_) => ProfileState(),
@@ -65,18 +59,6 @@ class AvailableQuestionScreen extends StatelessWidget {
                     ),
                   ),
                   label: "home",
-                ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: SvgPicture.asset(
-                      'assets/svg/bottom_nav/book.svg',
-                      color: state.bottomIndex == 1
-                          ? const Color(0xFF59AEFD)
-                          : const Color(0xFFA6A6A6),
-                    ),
-                  ),
-                  label: "ask",
                 ),
                 BottomNavigationBarItem(
                   icon: Padding(

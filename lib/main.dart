@@ -6,6 +6,8 @@ import 'package:acadque_teacher/modules/available_question_screen/available_ques
 import 'package:acadque_teacher/modules/available_question_screen/available_question_state.dart';
 import 'package:acadque_teacher/modules/login/login_screen.dart';
 import 'package:acadque_teacher/modules/login/login_state.dart';
+import 'package:acadque_teacher/modules/notification/notification_screen.dart';
+import 'package:acadque_teacher/modules/notification/notification_state.dart';
 import 'package:acadque_teacher/modules/register/register_screen.dart';
 import 'package:acadque_teacher/modules/register/register_state.dart';
 import 'package:acadque_teacher/modules/splash/splash_screen.dart';
@@ -67,6 +69,10 @@ class App extends StatelessWidget {
           '/answer_screen': (context) => ChangeNotifierProvider(
                 create: (_) => AnswerState(context),
                 child: const AnswerScreen(),
+              ),
+          '/notification': (context) => ChangeNotifierProvider(
+                create: (_) => NotificationState(),
+                child: const NotificationScreen(),
               ),
         },
         initialRoute: '/splash',

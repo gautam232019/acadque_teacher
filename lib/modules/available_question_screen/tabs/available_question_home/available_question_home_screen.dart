@@ -60,7 +60,13 @@ class AvailableQuestionHomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SvgPicture.asset('assets/svg/notification_icon.svg'),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/notification");
+                      },
+                      child:
+                          SvgPicture.asset('assets/svg/notification_icon.svg'),
+                    ),
                   ],
                 ),
               ),

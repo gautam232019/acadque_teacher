@@ -53,10 +53,7 @@ class TutorHomeScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => NotificationScreen()));
+                          Navigator.pushNamed(context, "/notification");
                         },
                         child: SizedBox(
                           height: 24.92,

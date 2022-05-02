@@ -156,8 +156,13 @@ class ProfileScreen extends StatelessWidget {
                           fontSize: 24,
                           fontFamily: 'Roboto'),
                     ),
-                    SvgPicture.asset(
-                      'assets/svg/notification_icon_black.svg',
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/notification");
+                      },
+                      child: SvgPicture.asset(
+                        'assets/svg/notification_icon_black.svg',
+                      ),
                     )
                   ],
                 ),
