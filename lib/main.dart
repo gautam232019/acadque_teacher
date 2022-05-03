@@ -1,9 +1,12 @@
+import 'package:acadque_teacher/core/services/local_storage_service.dart';
 import 'package:acadque_teacher/modules/answer_screen/answer_screen.dart';
 import 'package:acadque_teacher/modules/answer_screen/answer_state.dart';
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_screen.dart';
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_state.dart';
 import 'package:acadque_teacher/modules/available_question_screen/available_question_screen.dart';
 import 'package:acadque_teacher/modules/available_question_screen/available_question_state.dart';
+import 'package:acadque_teacher/modules/front_screen/front_screen.dart';
+import 'package:acadque_teacher/modules/front_screen/front_state.dart';
 import 'package:acadque_teacher/modules/login/login_screen.dart';
 import 'package:acadque_teacher/modules/login/login_state.dart';
 import 'package:acadque_teacher/modules/notification/notification_screen.dart';
@@ -34,6 +37,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = LocalStorageService().read(LocalStorageKeys.firstTime);
+    bool isFirstTime = false;
+    if (data == null) {
+      isFirstTime = true;
+      LocalStorageService().write(LocalStorageKeys.firstTime, "no");
+    } else {
+      isFirstTime = false;
+    }
     return OKToast(
       child: MaterialApp(
         key: navigatorKey,
@@ -74,8 +85,12 @@ class App extends StatelessWidget {
                 create: (_) => NotificationState(),
                 child: const NotificationScreen(),
               ),
+          '/front': (context) => ChangeNotifierProvider(
+                create: (_) => FrontState(),
+                child: const FrontScreen(),
+              ),
         },
-        initialRoute: '/splash',
+        initialRoute: isFirstTime ? "/front" : "/splash",
         debugShowCheckedModeBanner: false,
       ),
     );
