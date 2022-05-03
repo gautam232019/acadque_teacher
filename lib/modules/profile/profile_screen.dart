@@ -522,29 +522,35 @@ class ProfileScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                height: 93,
-                                width: 93,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: colorBorder)),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const SizedBox(
-                                      height: 1,
-                                    ),
-                                    Image.asset('assets/images/slots.png'),
-                                    const Text(
-                                      'Available Slots',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, "/available_slots");
+                                },
+                                child: Container(
+                                  height: 93,
+                                  width: 93,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: colorBorder)),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const SizedBox(
+                                        height: 1,
+                                      ),
+                                      Image.asset('assets/images/slots.png'),
+                                      const Text(
+                                        'Available Slots',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(

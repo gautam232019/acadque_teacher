@@ -5,6 +5,8 @@ import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_sc
 import 'package:acadque_teacher/modules/appointment_detail/appointment_detail_state.dart';
 import 'package:acadque_teacher/modules/available_question_screen/available_question_screen.dart';
 import 'package:acadque_teacher/modules/available_question_screen/available_question_state.dart';
+import 'package:acadque_teacher/modules/available_slot/available_slots.dart';
+import 'package:acadque_teacher/modules/available_slot/available_slots_state.dart';
 import 'package:acadque_teacher/modules/front_screen/front_screen.dart';
 import 'package:acadque_teacher/modules/front_screen/front_state.dart';
 import 'package:acadque_teacher/modules/login/login_screen.dart';
@@ -88,6 +90,10 @@ class App extends StatelessWidget {
           '/front': (context) => ChangeNotifierProvider(
                 create: (_) => FrontState(),
                 child: const FrontScreen(),
+              ),
+          '/available_slots': (context) => ChangeNotifierProvider(
+                create: (_) => AvailableSlotsState(),
+                child: const AvailableSlots(),
               ),
         },
         initialRoute: isFirstTime ? "/front" : "/splash",
