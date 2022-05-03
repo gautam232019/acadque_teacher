@@ -1,8 +1,10 @@
 import 'package:acadque_teacher/common/ui/ui_helpers.dart';
 import 'package:acadque_teacher/common/utils/colors_util.dart';
+import 'package:acadque_teacher/modules/tutoring_screen/tabs/appointment/appointment_tabs/history_screen/tabs/earning/earning_state.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class EarningScreen extends StatefulWidget {
   const EarningScreen({Key? key}) : super(key: key);
@@ -14,14 +16,14 @@ class EarningScreen extends StatefulWidget {
 class _EarningScreenState extends State<EarningScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<EarningState>(context);
+
     List<Color> gradientColors = [
-      // const Color(0xff23b6e6),
-      // const Color(0xff02d39a),
       colorPrimary,
       colorPrimary,
     ];
 
-    mainData() {
+    LineChartData mainData() {
       return LineChartData(
         gridData: FlGridData(
           show: true,
@@ -31,211 +33,191 @@ class _EarningScreenState extends State<EarningScreen> {
           getDrawingHorizontalLine: (value) {
             return FlLine(
               color: const Color(0xff37434d),
-              strokeWidth: 1,
+              strokeWidth: 0,
             );
           },
           getDrawingVerticalLine: (value) {
             return FlLine(
               color: const Color(0xff37434d),
-              strokeWidth: 1,
+              strokeWidth: 0,
             );
           },
         ),
         titlesData: FlTitlesData(
           show: true,
-          rightTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
+          rightTitles: SideTitles(showTitles: false),
+          topTitles: SideTitles(showTitles: false),
+          bottomTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 22,
+            interval: 1,
+            getTextStyles: (context, value) => const TextStyle(
+                color: Color(0xff68737d),
+                fontWeight: FontWeight.bold,
+                fontSize: 8),
+            getTitles: (value) {
+              switch (value.toInt()) {
+                case 1:
+                  return 'JAN';
+                case 2:
+                  return 'FEB';
+                case 3:
+                  return 'MAR';
+                case 4:
+                  return 'APR';
+                case 5:
+                  return 'MAY';
+                case 6:
+                  return 'JUN';
+                case 7:
+                  return 'JUL';
+                case 8:
+                  return 'AUG';
+                case 9:
+                  return 'SEP';
+                case 10:
+                  return 'OCT';
+                case 11:
+                  return 'NOV';
+                case 12:
+                  return 'DEC';
+              }
+              return '';
+            },
+            margin: 8,
           ),
-          topTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
-          ),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 30,
-              interval: 1,
-              getTitlesWidget: bottomTitleWidgets,
+          leftTitles: SideTitles(
+            showTitles: false,
+            interval: 1,
+            getTextStyles: (context, value) => const TextStyle(
+              color: Color(0xff67727d),
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
             ),
-          ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              interval: 1,
-              getTitlesWidget: leftTitleWidgets,
-              reservedSize: 42,
-            ),
+            getTitles: (value) {
+              switch (value.toInt()) {
+                case 1:
+                  return '10k';
+                case 3:
+                  return '30k';
+                case 5:
+                  return '50k';
+              }
+              return '';
+            },
+            reservedSize: 32,
+            margin: 12,
           ),
         ),
         borderData: FlBorderData(
             show: true,
-            border: Border.all(color: const Color(0xff37434d), width: 1)),
-        minX: 0,
-        maxX: 11,
+            border: Border.all(color: const Color(0xff37434d), width: 0)),
+        minX: 1,
+        maxX: 12,
         minY: 0,
         maxY: 6,
         lineBarsData: [
           LineChartBarData(
             spots: const [
-              FlSpot(0, 6),
-              FlSpot(2.6, 2),
-              FlSpot(4.9, 5),
-              FlSpot(6.8, 3.1),
-              FlSpot(8, 4),
-              FlSpot(9.5, 3),
-              FlSpot(11, 4),
+              FlSpot(4, 3),
+              FlSpot(3, 5),
             ],
             isCurved: true,
-            gradient: LinearGradient(
-              colors: gradientColors,
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            barWidth: 5,
+            colors: gradientColors,
+            barWidth: 1,
             isStrokeCapRound: true,
             dotData: FlDotData(
               show: false,
-            ),
-            belowBarData: BarAreaData(
-              show: true,
-              gradient: LinearGradient(
-                colors: gradientColors
-                    .map((color) => color.withOpacity(0.3))
-                    .toList(),
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
             ),
           ),
         ],
       );
     }
 
-    return Column(
-      children: [
-        Padding(
-          padding: sPagePadding,
-          child: Container(
-            height: 110,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12), color: colorPrimary),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'My Balance',
-                        style: TextStyle(
-                            color: colorWhite,
-                            fontFamily: 'Roboto',
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+    return Container(
+      child: state.loading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: [
+                Padding(
+                  padding: sPagePadding,
+                  child: Container(
+                    height: 110,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: colorPrimary),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'My Balance',
+                                style: TextStyle(
+                                    color: colorWhite,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '\$ ${state.totalIncomeState!.data!.balance!.first.available!}',
+                                style: const TextStyle(
+                                    color: colorWhite,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ],
+                          ),
+                          SvgPicture.asset('assets/svg/arrow_front.svg')
+                        ],
                       ),
-                      Text(
-                        '\$ 25,520',
-                        style: TextStyle(
-                            color: colorWhite,
-                            fontFamily: 'Roboto',
-                            fontSize: 35,
-                            fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 1.70,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(
+                                    2.0,
+                                    2.0,
+                                  ),
+                                  blurRadius: 2.0,
+                                  spreadRadius: 2.0,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(18),
+                              ),
+                              color: colorWhite),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                right: 18.0, left: 12.0, top: 24, bottom: 12),
+                            child: LineChart(mainData()),
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                  SvgPicture.asset('assets/svg/arrow_front.svg')
-                ],
-              ),
+                )
+              ],
             ),
-          ),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              AspectRatio(
-                aspectRatio: 1.70,
-                child: Container(
-                  decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          offset: Offset(
-                            2.0,
-                            2.0,
-                          ),
-                          blurRadius: 2.0,
-                          spreadRadius: 2.0,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(18),
-                      ),
-                      color: colorWhite),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        right: 18.0, left: 12.0, top: 24, bottom: 12),
-                    child: LineChart(mainData()),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
     );
   }
-}
-
-Widget bottomTitleWidgets(double value, TitleMeta meta) {
-  const style = TextStyle(
-    color: Color(0xff68737d),
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-  );
-  Widget text;
-  switch (value.toInt()) {
-    case 2:
-      text = const Text('MAR', style: style);
-      break;
-    case 5:
-      text = const Text('JUN', style: style);
-      break;
-    case 8:
-      text = const Text('SEP', style: style);
-      break;
-    default:
-      text = const Text('', style: style);
-      break;
-  }
-
-  return Padding(child: text, padding: const EdgeInsets.only(top: 8.0));
-}
-
-Widget leftTitleWidgets(double value, TitleMeta meta) {
-  const style = TextStyle(
-    color: Color(0xff67727d),
-    fontWeight: FontWeight.bold,
-    fontSize: 15,
-  );
-  String text;
-  switch (value.toInt()) {
-    case 1:
-      text = '10K';
-      break;
-    case 3:
-      text = '30k';
-      break;
-    case 5:
-      text = '50k';
-      break;
-    default:
-      return Container();
-  }
-
-  return Text(text, style: style, textAlign: TextAlign.left);
 }

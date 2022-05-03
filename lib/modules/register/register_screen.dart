@@ -29,8 +29,8 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Padding(
+                    children: const [
+                      Padding(
                         padding: EdgeInsets.only(top: 70.0),
                         child: Center(
                             child: Text(
@@ -42,28 +42,8 @@ class RegisterScreen extends StatelessWidget {
                               fontWeight: FontWeight.w700),
                         )),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 35,
-                      ),
-                      Stack(
-                        children: [
-                          Image.asset('assets/images/upload.png'),
-                          const Positioned(
-                            child: Text(
-                              'Upload\nPhoto',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            top: 35,
-                            left: 30,
-                          ),
-                          Positioned(
-                            child: SvgPicture.asset(
-                              'assets/svg/upload.svg',
-                            ),
-                            top: 10,
-                            right: 0,
-                          ),
-                        ],
                       ),
                     ],
                   ),
