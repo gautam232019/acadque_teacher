@@ -279,12 +279,21 @@ class ProfileScreen extends StatelessWidget {
                                           width: 110,
                                           color: Colors.white,
                                         ),
-                                      Positioned(
-                                        top: 52,
-                                        left: 25,
-                                        child: SvgPicture.asset(
-                                            'assets/svg/camera_icon.svg'),
-                                      ),
+                                      if (state.teacherProfileState!.data!
+                                          .teacher!.profileURL!.isNotEmpty)
+                                        Positioned(
+                                          top: 52,
+                                          left: 25,
+                                          child: SvgPicture.asset(
+                                              'assets/svg/camera_icon.svg'),
+                                        )
+                                      else
+                                        Positioned(
+                                          top: 62,
+                                          left: 35,
+                                          child: SvgPicture.asset(
+                                              'assets/svg/camera_icon.svg'),
+                                        ),
                                     ],
                                   ),
                                 ),

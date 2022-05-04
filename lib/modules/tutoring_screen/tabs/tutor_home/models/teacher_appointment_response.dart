@@ -131,7 +131,7 @@ class StudentId {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['name'] = this.name;
-    data['profileURL'] = this.profileURL;
+    data['profileURL'] = this.profileURL ?? "";
     return data;
   }
 }

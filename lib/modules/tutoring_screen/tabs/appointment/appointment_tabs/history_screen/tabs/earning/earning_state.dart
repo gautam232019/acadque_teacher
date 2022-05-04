@@ -11,7 +11,6 @@ class EarningState extends BaseState {
 
   EarningState() {
     getTotalIncome();
-    getMonthlyIcome();
   }
 
   String? userId;
@@ -28,8 +27,11 @@ class EarningState extends BaseState {
       final response = await dio.get("/teachers/$userId/totalbalance");
       totalIncomeState = TotalIncomeResponse.fromJson(response.data);
       notifyListeners();
+      getMonthlyIcome();
       // ignore: empty_catches
-    } catch (err) {}
+    } catch (err) {
+      print(err);
+    }
   }
 
   MonthlyIncomeResponse? monthlyIncomeState;
@@ -41,7 +43,9 @@ class EarningState extends BaseState {
       monthlyIncomeState = MonthlyIncomeResponse.fromJson(response.data);
       notifyListeners();
       // ignore: empty_catches
-    } catch (err) {}
+    } catch (err) {
+      print(err);
+    }
     setLoading(false);
   }
 }

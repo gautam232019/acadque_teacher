@@ -50,6 +50,7 @@ class ProfileState extends BaseState {
   }
 
   onSubjectEdit() async {
+    setLoading(true);
     try {
       Map<String, dynamic> user = Jwt.parseJwt(token!);
       id = user["userId"] as String;

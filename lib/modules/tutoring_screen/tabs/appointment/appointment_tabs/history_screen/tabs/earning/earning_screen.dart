@@ -6,18 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class EarningScreen extends StatefulWidget {
+class EarningScreen extends StatelessWidget {
   const EarningScreen({Key? key}) : super(key: key);
 
   @override
-  State<EarningScreen> createState() => _EarningScreenState();
-}
-
-class _EarningScreenState extends State<EarningScreen> {
-  @override
   Widget build(BuildContext context) {
     final state = Provider.of<EarningState>(context);
-
     List<Color> gradientColors = [
       colorPrimary,
       colorPrimary,
@@ -119,8 +113,8 @@ class _EarningScreenState extends State<EarningScreen> {
         lineBarsData: [
           LineChartBarData(
             spots: const [
-              FlSpot(4, 3),
-              FlSpot(3, 5),
+              // FlSpot(4, 3),
+              // FlSpot(3, 5),
             ],
             isCurved: true,
             colors: gradientColors,
@@ -165,14 +159,25 @@ class _EarningScreenState extends State<EarningScreen> {
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                '\$ ${state.totalIncomeState!.data!.balance!.first.available!}',
-                                style: const TextStyle(
-                                    color: colorWhite,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.normal),
-                              ),
+                              if (state
+                                  .totalIncomeState!.data!.balance!.isNotEmpty)
+                                Text(
+                                  '\$ ${state.totalIncomeState!.data!.balance!.first.available!.toString()}',
+                                  style: const TextStyle(
+                                      color: colorWhite,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.normal),
+                                )
+                              else
+                                const Text(
+                                  "\$ 0",
+                                  style: TextStyle(
+                                      color: colorWhite,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.normal),
+                                ),
                             ],
                           ),
                           SvgPicture.asset('assets/svg/arrow_front.svg')

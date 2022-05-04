@@ -1,5 +1,3 @@
-import 'package:acadque_teacher/common/ui/divider_line.dart';
-import 'package:acadque_teacher/common/ui/tutor_profile.dart';
 import 'package:acadque_teacher/common/ui/ui_helpers.dart';
 import 'package:acadque_teacher/common/utils/colors_util.dart';
 import 'package:acadque_teacher/modules/tutoring_screen/tabs/tutor_home/tutor_home_state.dart';
@@ -91,119 +89,123 @@ class TutorHomeScreen extends StatelessWidget {
                                 children: state.teacherAppointmentState!.data!
                                     .appointments!
                                     .map(
-                                      (e) => Column(
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(context,
-                                                  "/appointment_detail",
-                                                  arguments: {"id": e.sId!});
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          color: const Color(
-                                                              0xFF33354E),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8)),
-                                                      height: 72,
-                                                      width: 84,
-                                                      child: const Icon(
-                                                        Icons
-                                                            .play_arrow_rounded,
-                                                        size: 50,
-                                                        color: Colors.grey,
+                                  (e) {
+                                    return Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, "/appointment_detail",
+                                                arguments: {"id": e.sId!});
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xFF33354E),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8)),
+                                                    height: 72,
+                                                    width: 84,
+                                                    child: e.studentId!
+                                                                .profileURL !=
+                                                            null
+                                                        ? Image.network(
+                                                            e.studentId!
+                                                                .profileURL!,
+                                                            fit: BoxFit.cover,
+                                                            width:
+                                                                double.infinity,
+                                                          )
+                                                        : null,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 12,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        " ${e.duration!.toString()} Mins Session",
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 12,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          '30 Mins Session',
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                      Text(
+                                                        e.type!,
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color:
+                                                              Color(0xFFA1A1A1),
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "${Jiffy(e.from).format("hh:mm a")} to ${Jiffy(e.to!).format("hh:mm a")}",
+                                                            style: const TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    colorPrimary),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          e.type!,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            color: Color(
-                                                                0xFFA1A1A1),
+                                                          const SizedBox(
+                                                            width: 6,
                                                           ),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "${Jiffy(e.from).format("hh:mm a")} to ${Jiffy(e.to!).format("hh:mm a")}",
-                                                              style: const TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color:
-                                                                      colorPrimary),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 6,
-                                                            ),
-                                                            const Text(
-                                                              '|',
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color:
-                                                                      colorPrimary),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 6,
-                                                            ),
-                                                            Text(
-                                                                Jiffy(e.from)
-                                                                    .format(
-                                                                        "dd MMM yyyy"),
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    color:
-                                                                        colorPrimary))
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                                          const Text(
+                                                            '|',
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    colorPrimary),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 6,
+                                                          ),
+                                                          Text(
+                                                            Jiffy(e.from).format(
+                                                                "dd MMM yyyy"),
+                                                            style: const TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    colorPrimary),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                          "Status: ${e.status!}")
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                          mHeightSpan,
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
+                                        ),
+                                        mHeightSpan,
+                                      ],
+                                    );
+                                  },
+                                ).toList(),
                               ),
                             ),
                 ),

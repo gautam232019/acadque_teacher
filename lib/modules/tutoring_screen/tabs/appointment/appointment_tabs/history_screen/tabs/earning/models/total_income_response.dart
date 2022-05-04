@@ -50,9 +50,9 @@ class Balance {
   Balance({this.totalBalance, this.withdraw, this.available});
 
   Balance.fromJson(Map<String, dynamic> json) {
-    totalBalance = json['totalBalance'];
-    withdraw = json['withdraw'];
-    available = json['available'];
+    totalBalance = json['totalBalance'] ?? 0;
+    withdraw = json['withdraw'] ?? 0;
+    available = json['available'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
