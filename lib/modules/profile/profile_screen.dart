@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final multiSelectKey = GlobalKey<FormFieldState>();
 
@@ -204,7 +205,7 @@ class ProfileScreen extends StatelessWidget {
                                                       MainAxisAlignment.center,
                                                   children: const [
                                                     Text(
-                                                      "Choose one",
+                                                      "Choose Profile",
                                                       style: TextStyle(
                                                         fontSize: 18,
                                                       ),
@@ -351,7 +352,7 @@ class ProfileScreen extends StatelessWidget {
                                                 width: 10,
                                               ),
                                               Text(
-                                                '${state.teacherProfileState!.data!.teacher!.hourlyRate!.toString()}  / hr',
+                                                'Rs ${state.teacherProfileState!.data!.teacher!.hourlyRate!.toString()}  / hr',
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 12,
@@ -562,54 +563,71 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Container(
-                                height: 93,
-                                width: 93,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: colorBorder)),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const SizedBox(
-                                      height: 1,
-                                    ),
-                                    Image.asset('assets/images/terms.png'),
-                                    const Text(
-                                      'Terms & Policy',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                              InkWell(
+                                onTap: () async {
+                                  const url =
+                                      "https://www.acadque.com/termsandc";
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    launchUrl(Uri.parse(url));
+                                  }
+                                },
+                                child: Container(
+                                  height: 93,
+                                  width: 93,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: colorBorder)),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const SizedBox(
+                                        height: 1,
+                                      ),
+                                      Image.asset('assets/images/terms.png'),
+                                      const Text(
+                                        'Terms & Policy',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Container(
-                                height: 93,
-                                width: 93,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: colorBorder)),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const SizedBox(
-                                      height: 1,
-                                    ),
-                                    Image.asset('assets/images/info.png'),
-                                    const Text(
-                                      'About Us',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                              InkWell(
+                                onTap: () async {
+                                  const url = "https://www.acadque.com/aboutus";
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    launchUrl(Uri.parse(url));
+                                  }
+                                },
+                                child: Container(
+                                  height: 93,
+                                  width: 93,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: colorBorder)),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const SizedBox(
+                                        height: 1,
+                                      ),
+                                      Image.asset('assets/images/info.png'),
+                                      const Text(
+                                        'About Us',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
