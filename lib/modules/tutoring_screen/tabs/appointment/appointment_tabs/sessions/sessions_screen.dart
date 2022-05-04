@@ -48,11 +48,13 @@ class SessionScreen extends StatelessWidget {
                                                 BorderRadius.circular(8)),
                                         height: 72,
                                         width: 84,
-                                        child: const Icon(
-                                          Icons.play_arrow_rounded,
-                                          size: 50,
-                                          color: Colors.grey,
-                                        ),
+                                        child: e.studentId!.profileURL != null
+                                            ? Image.network(
+                                                e.studentId!.profileURL!,
+                                                fit: BoxFit.cover,
+                                                width: double.infinity,
+                                              )
+                                            : null,
                                       ),
                                       const SizedBox(
                                         width: 12,
@@ -61,9 +63,9 @@ class SessionScreen extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                            '30 Mins Session',
-                                            style: TextStyle(
+                                          Text(
+                                            " ${e.duration!.toString()} Mins Session",
+                                            style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -108,6 +110,7 @@ class SessionScreen extends StatelessWidget {
                                                       color: colorPrimary))
                                             ],
                                           ),
+                                          Text("Status: ${e.status!}")
                                         ],
                                       )
                                     ],
