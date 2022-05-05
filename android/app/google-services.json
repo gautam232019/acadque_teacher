@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "320422361921",
+    "project_id": "teacher-7de11",
+    "storage_bucket": "teacher-7de11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320422361921:android:b8abe2f4b432eefbffffc0",
+        "android_client_info": {
+          "package_name": "com.example.acadque_teacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320422361921-45br4878qar5ajcbenojm986ig1n53q9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acadque_teacher",
+            "certificate_hash": "d2494f34f60ac7e5e22edfb0c3b024cb7a362e50"
+          }
+        },
+        {
+          "client_id": "320422361921-haghbbr9q3euoc1gcmvneb2npsvrrrqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOlHnXtpkHvygK-tzbwIbP7gJCoqKYsvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320422361921-haghbbr9q3euoc1gcmvneb2npsvrrrqi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
