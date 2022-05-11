@@ -1,41 +1,79 @@
 {
   "project_info": {
-    "project_number": "320422361921",
-    "project_id": "teacher-7de11",
-    "storage_bucket": "teacher-7de11.appspot.com"
+    "project_number": "883507109278",
+    "firebase_url": "https://feedback-f8e4b.firebaseio.com",
+    "project_id": "feedback-f8e4b",
+    "storage_bucket": "feedback-f8e4b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320422361921:android:b8abe2f4b432eefbffffc0",
+        "mobilesdk_app_id": "1:883507109278:android:dbdfae35ac2968eeae0a8f",
         "android_client_info": {
-          "package_name": "com.example.acadque_teacher"
+          "package_name": "com.example.acadeque_student_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "320422361921-45br4878qar5ajcbenojm986ig1n53q9.apps.googleusercontent.com",
+          "client_id": "883507109278-vif06218clgj2scic9d8qc9lf6dub5jo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.acadque_teacher",
-            "certificate_hash": "d2494f34f60ac7e5e22edfb0c3b024cb7a362e50"
+            "package_name": "com.example.acadeque_student_app",
+            "certificate_hash": "3450a7c1d79ffdd83708f164996f6413dd8d67b3"
           }
         },
         {
-          "client_id": "320422361921-haghbbr9q3euoc1gcmvneb2npsvrrrqi.apps.googleusercontent.com",
+          "client_id": "883507109278-dhl6ors4juomehtds8et9oevpo5k32ni.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDOlHnXtpkHvygK-tzbwIbP7gJCoqKYsvM"
+          "current_key": "AIzaSyCCrOC1UCnbzh173bZpDp459qzOat5Ki6U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "320422361921-haghbbr9q3euoc1gcmvneb2npsvrrrqi.apps.googleusercontent.com",
+              "client_id": "883507109278-09jcmtmba4hm7pmnc38puf5vkq47dm3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883507109278:android:ec6f64274ff64d89ae0a8f",
+        "android_client_info": {
+          "package_name": "com.example.acadque_teacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883507109278-5isd5lkh45usgphkm1pfujg5tcqct78o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acadque_teacher",
+            "certificate_hash": "3450a7c1d79ffdd83708f164996f6413dd8d67b3"
+          }
+        },
+        {
+          "client_id": "883507109278-dhl6ors4juomehtds8et9oevpo5k32ni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCrOC1UCnbzh173bZpDp459qzOat5Ki6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "883507109278-09jcmtmba4hm7pmnc38puf5vkq47dm3l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
