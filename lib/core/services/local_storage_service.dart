@@ -3,6 +3,8 @@ import 'package:get_storage/get_storage.dart';
 class LocalStorageKeys {
   static const accessToken = "token";
   static const firstTime = "firstTime";
+  static const userName = "name";
+  static const email = "email";
 }
 
 class LocalStorageService {

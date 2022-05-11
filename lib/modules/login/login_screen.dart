@@ -154,7 +154,9 @@ class LoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                state.onGoogleSignup(context);
+                              },
                               child: Container(
                                 height: 48,
                                 width: 126,
