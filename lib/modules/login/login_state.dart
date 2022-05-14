@@ -53,29 +53,63 @@ class LoginState extends BaseState {
   String? token;
 
   onSubmit(context) async {
-    setLoading(true);
+    if (formKey.currentState!.validate()) {
+      try {
+        final finalEmail = userName.replaceAll(' ', '');
+        final response = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: finalEmail, password: password);
+        if (FirebaseAuth.instance.currentUser != null) {
+          final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+          this.token = token;
+          notifyListeners();
+        }
+        if (response.user!.emailVerified == false) {
+          ToastService().w("Please verify your email!");
+          setLoading(false);
+          return;
+        }
+        if (FirebaseAuth.instance.currentUser != null) {
+          final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+          this.token = token;
+          notifyListeners();
+        }
+        onFinalNativeSubmit(context);
+        // ignore: empty_catches
+      } on FirebaseAuthException catch (err) {
+        ToastService().e(err.message!);
+        setLoading(false);
+      }
+    }
+    setLoading(false);
+  }
+
+  onFinalNativeSubmit(context) async {
     try {
       final finalEmail = userName.replaceAll(' ', '');
-      final response = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: finalEmail, password: password);
-      if (FirebaseAuth.instance.currentUser != null) {
-        final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-        this.token = token;
-        notifyListeners();
+      String? name = LocalStorageService().read(LocalStorageKeys.userName);
+
+      String? storedEmail = LocalStorageService().read(LocalStorageKeys.email);
+      if (storedEmail == finalEmail) {
+        final response = await dio.get(
+            "/auth/provider?user=student&provider=password&idToken=$token&name=$name");
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data["data"]);
+        LocalStorageService().write(LocalStorageKeys.isNaviveProvider, "Yes");
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/welcome', (route) => false);
+      } else {
+        final response = await dio.get(
+            "/auth/provider?user=student&provider=password&idToken=$token");
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data["data"]);
+        LocalStorageService().write(LocalStorageKeys.isNaviveProvider, "Yes");
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/welcome', (route) => false);
       }
-      if (response.user!.emailVerified == false) {
-        ToastService().w("Please verify your email!");
-        return;
-      }
-      if (FirebaseAuth.instance.currentUser != null) {
-        final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-        this.token = token;
-        notifyListeners();
-      }
-      onFinalSubmit(context);
+      setLoading(false);
       // ignore: empty_catches
-    } catch (err) {
-      ToastService().e(err.toString());
+    } on DioError catch (err) {
+      setLoading(false);
     }
   }
 
