@@ -158,6 +158,9 @@ class ProfileState extends BaseState {
                 child: const Text('Ok'),
                 onPressed: () {
                   LocalStorageService().clear(LocalStorageKeys.accessToken);
+                  LocalStorageService().clear(LocalStorageKeys.email);
+                  LocalStorageService()
+                      .clear(LocalStorageKeys.isNaviveProvider);
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (route) => false);
                 },

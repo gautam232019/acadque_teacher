@@ -31,29 +31,10 @@ class LoginState extends BaseState {
     notifyListeners();
   }
 
-  // onSubmit(context) async {
-  //   setLoading(true);
-  //   if (formKey.currentState!.validate()) {
-  //     var data = {
-  //       "email": userName,
-  //       "password": password,
-  //     };
-  //     try {
-  //       final response = await dio.post("auth/login?user=teacher", data: data);
-  //       LocalStorageService()
-  //           .write(LocalStorageKeys.accessToken, response.data["data"]);
-
-  //       Navigator.pushReplacementNamed(context, '/splash');
-  //       // ignore: empty_catches
-  //     } catch (err) {}
-  //   }
-  //   setLoading(false);
-  // }
-
   String? token;
-
   onSubmit(context) async {
     if (formKey.currentState!.validate()) {
+      setLoading(true);
       try {
         final finalEmail = userName.replaceAll(' ', '');
         final response = await FirebaseAuth.instance
@@ -64,6 +45,7 @@ class LoginState extends BaseState {
           notifyListeners();
         }
         if (response.user!.emailVerified == false) {
+          response.user!.sendEmailVerification();
           ToastService().w("Please verify your email!");
           setLoading(false);
           return;
@@ -80,7 +62,6 @@ class LoginState extends BaseState {
         setLoading(false);
       }
     }
-    setLoading(false);
   }
 
   onFinalNativeSubmit(context) async {
@@ -89,9 +70,9 @@ class LoginState extends BaseState {
       String? name = LocalStorageService().read(LocalStorageKeys.userName);
 
       String? storedEmail = LocalStorageService().read(LocalStorageKeys.email);
-      if (storedEmail == finalEmail) {
+      if (storedEmail?.replaceAll(' ', '') == finalEmail.replaceAll(' ', '')) {
         final response = await dio.get(
-            "/auth/provider?user=student&provider=password&idToken=$token&name=$name");
+            "/auth/provider?user=teacher&provider=password&idToken=$token&name=$name");
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data["data"]);
         LocalStorageService().write(LocalStorageKeys.isNaviveProvider, "Yes");
@@ -99,7 +80,7 @@ class LoginState extends BaseState {
             context, '/welcome', (route) => false);
       } else {
         final response = await dio.get(
-            "/auth/provider?user=student&provider=password&idToken=$token");
+            "/auth/provider?user=teacher&provider=password&idToken=$token");
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data["data"]);
         LocalStorageService().write(LocalStorageKeys.isNaviveProvider, "Yes");
@@ -155,7 +136,7 @@ class LoginState extends BaseState {
             context, '/welcome', (route) => false);
       }
       setLoading(false);
-      // ignore: empty_catches
+      // ignore: empty_catches, unused_catch_clause
     } on DioError catch (err) {
       setLoading(false);
     }
