@@ -209,8 +209,8 @@ class LoginScreen extends StatelessWidget {
                                   children: [
                                     SvgPicture.asset(
                                       'assets/svg/facebook.svg',
-                                      height: 24.8,
-                                      width: 24.2,
+                                      // height: 24.8,
+                                      // width: 24.2,
                                     ),
                                     const Padding(
                                       padding: EdgeInsets.symmetric(
@@ -238,17 +238,24 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              "New User?",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF919191)),
-                            ),
                             const SizedBox(
-                              width: 10,
+                              height: 48,
+                              width: 126,
+                              child: Center(
+                                child: Text(
+                                  "New User?",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFF919191),
+                                  ),
+                                ),
+                              ),
                             ),
+                            // const SizedBox(
+                            //   width: 10,
+                            // ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context, '/register');
@@ -257,8 +264,8 @@ class LoginScreen extends StatelessWidget {
                                 height: 48,
                                 width: 126,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceEvenly,
                                   children: const [
                                     Padding(
                                       padding: EdgeInsets.symmetric(
