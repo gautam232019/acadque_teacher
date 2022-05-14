@@ -70,6 +70,53 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
+    onHourlyEdit(String field, String value) {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Edit Hourly Rate'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  TextFormField(
+                    initialValue: value,
+                    onChanged: (val) {
+                      state.onChange(field, val);
+                    },
+                    decoration: InputDecoration(
+                      hintText: '',
+                      label: Text(field.toUpperCase()),
+                      hintStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 17.5,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold),
+                      labelStyle: const TextStyle(
+                          color: Color(0xFFA1A1A1),
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  state.onSubmit(field);
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     onEmailEdit() {
       return showDialog<bool>(
         context: context,
@@ -547,7 +594,7 @@ class ProfileScreen extends StatelessWidget {
                                             state.teacherProfileState!.data!
                                                 .teacher!.hourlyRate!
                                                 .toString());
-                                        onTextEdit(
+                                        onHourlyEdit(
                                             'hourlyRate',
                                             state.teacherProfileState!.data!
                                                 .teacher!.hourlyRate!
@@ -578,7 +625,7 @@ class ProfileScreen extends StatelessWidget {
                                                 width: 10,
                                               ),
                                               Text(
-                                                'Rs ${state.teacherProfileState!.data!.teacher!.hourlyRate!.toString()}  / hr',
+                                                'Rs ${state.teacherProfileState!.data!.teacher!.hourlyRate!.toString()} / hr',
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 12,
