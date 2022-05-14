@@ -26,10 +26,13 @@ class TutorHomeState extends BaseState {
       id = user["userId"] as String;
       final response = await dio.get("/teachers/$id");
       teacherProfileState = TeacherProfileResponse.fromJson(response.data);
+      print(teacherProfileState!.data!.teacher!.name!);
       notifyListeners();
     }
     // ignore: empty_catches
-    catch (err) {}
+    catch (err) {
+      print(err);
+    }
     setLoading(false);
   }
 

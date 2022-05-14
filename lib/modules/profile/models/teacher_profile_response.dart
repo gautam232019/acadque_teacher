@@ -45,6 +45,7 @@ class Teacher {
   String? role;
   String? email;
   String? work;
+  String? contact;
   List<Subjects>? subjects;
   num? hourlyRate;
   num? minuteRate;
@@ -84,6 +85,7 @@ class Teacher {
     authProvider = json['authProvider'];
     role = json['role'];
     email = json['email'];
+    contact = json['contact'] != null ? json['contact'].toString() : "";
     work = json['work'];
     if (json['subjects'] != null) {
       subjects = <Subjects>[];

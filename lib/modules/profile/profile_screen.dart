@@ -5,6 +5,7 @@ import 'package:acadque_teacher/common/ui/divider_line.dart';
 import 'package:acadque_teacher/common/ui/profile_row.dart';
 import 'package:acadque_teacher/common/ui/ui_helpers.dart';
 import 'package:acadque_teacher/common/utils/colors_util.dart';
+import 'package:acadque_teacher/core/services/local_storage_service.dart';
 import 'package:acadque_teacher/modules/profile/models/teacher_profile_response.dart';
 import 'package:acadque_teacher/modules/profile/profile_state.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,231 @@ class ProfileScreen extends StatelessWidget {
           );
         },
       );
+    }
+
+    onEmailEdit() {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Email update'),
+            content: SingleChildScrollView(
+              child: Form(
+                key: state.emailFormKey,
+                child: ListBody(
+                  children: <Widget>[
+                    TextFormField(
+                      onChanged: (val) {
+                        state.onNewEmailChange(val);
+                      },
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return "Please enter email!";
+                        } else if (RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(val) ==
+                            false) {
+                          return "Plesae enter valid email";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: '',
+                        label: Text("EMAIL"),
+                        hintStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.5,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(
+                            color: Color(0xFFA1A1A1),
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  state.onNewEmailUpdateSubmit(context);
+                  // Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    onPasswordEdit() {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Password Change'),
+            content: SingleChildScrollView(
+              child: Form(
+                key: state.formKey,
+                child: ListBody(
+                  children: <Widget>[
+                    TextFormField(
+                      onChanged: (val) {
+                        state.onOldPasswordChange(val);
+                      },
+                      decoration: const InputDecoration(
+                        hintText: '',
+                        label: Text("Old password"),
+                        hintStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.5,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(
+                            color: Color(0xFFA1A1A1),
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    ),
+                    xsHeightSpan,
+                    TextFormField(
+                      onChanged: (val) {
+                        state.onNewPasswordChange(val);
+                      },
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return "Please enter password!";
+                        } else if (RegExp(
+                                    "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)")
+                                .hasMatch(val) ==
+                            false) {
+                          return "Please is week!";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: '',
+                        label: Text("New password"),
+                        hintStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.5,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(
+                            color: Color(0xFFA1A1A1),
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  state.onPasswordUpdate(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    onContactEdit() {
+      return showDialog<bool>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return StatefulBuilder(builder: ((context, setState) {
+              return AlertDialog(
+                title: const Text('Contact update'),
+                content: SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      TextFormField(
+                        onChanged: (val) {
+                          state.onContactChange(val);
+                        },
+                        decoration: const InputDecoration(
+                          hintText: '',
+                          label: Text("Phone Number"),
+                          hintStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.5,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold),
+                          labelStyle: TextStyle(
+                              color: Color(0xFFA1A1A1),
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                        ),
+                      ),
+                      if (state.contactUpdateLoading == true)
+                        const SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      xsHeightSpan,
+                      SizedBox(
+                        child: TextFormField(
+                          onChanged: (val) {
+                            state.onCodeSmsChange(val);
+                          },
+                          decoration: const InputDecoration(
+                            hintText: '',
+                            label: Text("OTP"),
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 17.5,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold),
+                            labelStyle: TextStyle(
+                                color: Color(0xFFA1A1A1),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ),
+                      // if (state.contactUpdateLoading == true)
+                      //   const CircularProgressIndicator()
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text("Get Otp"),
+                    onPressed: () {
+                      state.sendOtp();
+                      // Navigator.of(context).pop(true);
+                    },
+                  ),
+                  TextButton(
+                    child: const Text('Submit'),
+                    onPressed: () {
+                      state.onContactUpdateSubmit(context);
+                      // Navigator.of(context).pop(true);
+                    },
+                  ),
+                ],
+              );
+            }));
+          });
     }
 
     onSubjectEdit(String field, List<Subjects> value) {
@@ -410,26 +636,50 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                   DividerLine(),
-                                  ProfileRow(
-                                    iconPath:
-                                        'assets/svg/profile/email_icon.svg',
-                                    title: 'E-mail',
-                                    value: state.teacherProfileState!.data!
-                                        .teacher!.email!,
+                                  InkWell(
+                                    onTap: () {
+                                      final result = LocalStorageService().read(
+                                          LocalStorageKeys.isNaviveProvider);
+                                      if (result != null) {
+                                        onEmailEdit();
+                                      }
+                                    },
+                                    child: ProfileRow(
+                                      iconPath:
+                                          'assets/svg/profile/email_icon.svg',
+                                      title: 'E-mail',
+                                      value: state.teacherProfileState!.data!
+                                          .teacher!.email!,
+                                    ),
                                   ),
                                   DividerLine(),
-                                  const ProfileRow(
-                                    iconPath:
-                                        'assets/svg/profile/password_icon.svg',
-                                    title: 'Password',
-                                    value: 'Updated 2 weeks ago',
+                                  InkWell(
+                                    onTap: () {
+                                      final result = LocalStorageService().read(
+                                          LocalStorageKeys.isNaviveProvider);
+                                      if (result != null) {
+                                        onPasswordEdit();
+                                      }
+                                    },
+                                    child: const ProfileRow(
+                                      iconPath:
+                                          'assets/svg/profile/password_icon.svg',
+                                      title: 'Password',
+                                      value: 'Updated 2 weeks ago',
+                                    ),
                                   ),
                                   DividerLine(),
-                                  const ProfileRow(
-                                    iconPath:
-                                        'assets/svg/profile/phone_icon.svg',
-                                    title: 'Contact Number',
-                                    value: "98156024409",
+                                  InkWell(
+                                    onTap: () {
+                                      onContactEdit();
+                                    },
+                                    child: ProfileRow(
+                                      iconPath: 'assets/svg/contact_icon.svg',
+                                      title: 'Contact Number',
+                                      value: state.teacherProfileState?.data
+                                              ?.teacher?.contact ??
+                                          "N/A",
+                                    ),
                                   ),
                                   DividerLine(),
                                   InkWell(
