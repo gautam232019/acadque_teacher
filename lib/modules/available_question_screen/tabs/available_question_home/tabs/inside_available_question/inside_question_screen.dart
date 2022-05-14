@@ -23,46 +23,46 @@ class InsideQuestionScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Select Category',
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      height: 50,
-                      width: 327,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFF9F9F9),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFFF9F9F9))),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          isExpanded: true,
-                          value: state.subject,
-                          hint: const Text("Select subject"),
-                          items: state.subjectState!.data!.subjects!
-                              .map(
-                                (e) => DropdownMenuItem(
-                                  child: Text(e.name!),
-                                  value: e.sId!,
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (val) {
-                            state.onSubjectChange(val);
-                          },
-                          iconSize: 40,
-                          icon: const Icon(
-                            Icons.arrow_drop_down,
-                            color: colorBox,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // const Text(
+                    //   'Select Category',
+                    //   style:
+                    //       TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    // ),
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // Container(
+                    //   height: 50,
+                    //   width: 327,
+                    //   padding: const EdgeInsets.all(12),
+                    //   decoration: BoxDecoration(
+                    //       color: const Color(0xFFF9F9F9),
+                    //       borderRadius: BorderRadius.circular(12),
+                    //       border: Border.all(color: const Color(0xFFF9F9F9))),
+                    //   child: DropdownButtonHideUnderline(
+                    //     child: DropdownButton(
+                    //       isExpanded: true,
+                    //       value: state.subject,
+                    //       hint: const Text("Select subject"),
+                    //       items: state.subjectState!.data!.subjects!
+                    //           .map(
+                    //             (e) => DropdownMenuItem(
+                    //               child: Text(e.name!),
+                    //               value: e.sId!,
+                    //             ),
+                    //           )
+                    //           .toList(),
+                    //       onChanged: (val) {
+                    //         state.onSubjectChange(val);
+                    //       },
+                    //       iconSize: 40,
+                    //       icon: const Icon(
+                    //         Icons.arrow_drop_down,
+                    //         color: colorBox,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     if (state.studentQuestionsState!.data!.questions!.isEmpty)
                       const Expanded(
                         child: Center(
