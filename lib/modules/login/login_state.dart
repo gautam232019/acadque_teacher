@@ -83,6 +83,7 @@ class LoginState extends BaseState {
             "/auth/provider?user=teacher&provider=password&idToken=$token");
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data["data"]);
+        print(response.data["data"]);
         LocalStorageService().write(LocalStorageKeys.isNaviveProvider, "Yes");
         Navigator.pushNamedAndRemoveUntil(
             context, '/welcome', (route) => false);

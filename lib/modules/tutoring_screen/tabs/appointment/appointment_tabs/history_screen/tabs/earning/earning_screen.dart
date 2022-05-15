@@ -109,13 +109,12 @@ class EarningScreen extends StatelessWidget {
         minX: 1,
         maxX: 12,
         minY: 0,
-        maxY: 6,
+        maxY: 150,
         lineBarsData: [
           LineChartBarData(
-            spots: const [
-              // FlSpot(4, 3),
-              // FlSpot(3, 5),
-            ],
+            spots: state.monthlyIncomeState!.data!.incomes!
+                .map((e) => FlSpot(e.month!.toDouble(), e.income!.toDouble()))
+                .toList(),
             isCurved: true,
             colors: gradientColors,
             barWidth: 1,
