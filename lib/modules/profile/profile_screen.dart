@@ -70,6 +70,69 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
+    showTwitterAddModel() {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Add Twitter Link'),
+            content: SingleChildScrollView(
+              child: Form(
+                key: state.twitterKey,
+                child: ListBody(
+                  children: <Widget>[
+                    TextFormField(
+                      onChanged: state.onTwitterlinkChange,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return "Please provide twitter link!";
+                        } else if (RegExp(
+                                    "http(?:s)?:\\/\\/(?:www\\.)?twitter\\.com\\/([a-zA-Z0-9_]+)")
+                                .hasMatch(val) ==
+                            false) {
+                          return "Please add valid twitter link!";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: '',
+                        label: Text("Twitter link"),
+                        hintStyle: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.5,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold),
+                        labelStyle: const TextStyle(
+                            color: Color(0xFFA1A1A1),
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  state.onTwitterLinkSubmit(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     onHourlyEdit(String field, String value) {
       return showDialog<bool>(
         context: context,
@@ -807,6 +870,51 @@ class ProfileScreen extends StatelessWidget {
                                           color: colorBox,
                                         )
                                       ],
+                                    ),
+                                  ),
+                                  DividerLine(),
+                                  InkWell(
+                                    onTap: () {
+                                      showTwitterAddModel();
+                                    },
+                                    child: Container(
+                                      height: 57,
+                                      width: 326,
+                                      decoration: BoxDecoration(
+                                          // color: const Color(0xFFE9F6FF),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                    'assets/svg/twitter.svg'),
+                                                const SizedBox(
+                                                  width: 15,
+                                                ),
+                                                const Text(
+                                                  'Twitter',
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 53, 51, 51),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      fontFamily: 'Roboto'),
+                                                ),
+                                              ],
+                                            ),
+                                            SvgPicture.asset(
+                                                'assets/svg/arrow.svg'),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   DividerLine(),

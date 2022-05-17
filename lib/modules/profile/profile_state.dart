@@ -330,4 +330,33 @@ class ProfileState extends BaseState {
     }
     setLoading(false);
   }
+
+  String? twitterlink;
+
+  onTwitterlinkChange(val) {
+    twitterlink = val;
+    notifyListeners();
+  }
+
+  onTwitterLinkSubmit(context) async {
+    if (twitterKey.currentState!.validate()) {
+      try {
+        var data = {
+          "name": "twitter",
+          "url": twitterlink,
+        };
+        await dio.patch(
+            "/teachers/${teacherProfileState!.data!.teacher!.sId}/connects",
+            data: data);
+        ToastService().s("Link added!");
+        Navigator.pop(context);
+      } catch (err) {
+        Navigator.pop(context);
+      }
+    } else {
+      ToastService().w("Please add twitter link");
+    }
+  }
+
+  final GlobalKey<FormState> twitterKey = GlobalKey<FormState>();
 }
