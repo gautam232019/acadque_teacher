@@ -775,7 +775,7 @@ class ProfileScreen extends StatelessWidget {
                                       iconPath:
                                           'assets/svg/profile/password_icon.svg',
                                       title: 'Password',
-                                      value: 'Updated 2 weeks ago',
+                                      value: '********',
                                     ),
                                   ),
                                   DividerLine(),
