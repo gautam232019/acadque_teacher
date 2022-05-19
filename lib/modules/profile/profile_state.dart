@@ -208,7 +208,7 @@ class ProfileState extends BaseState {
         contactUpdateLoading == true;
         notifyListeners();
         FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: "+977 $contactNumber",
+          phoneNumber: "+91 $contactNumber",
           verificationCompleted: (PhoneAuthCredential credential) async {
             final user =
                 await FirebaseAuth.instance.signInWithCredential(credential);
