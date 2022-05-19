@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:acadque_teacher/core/http/http.dart';
@@ -350,12 +351,24 @@ class ProfileState extends BaseState {
             data: data);
         ToastService().s("Link added!");
         Navigator.pop(context);
+        fetchTeacherProfile();
       } catch (err) {
         Navigator.pop(context);
       }
     } else {
       ToastService().w("Please add twitter link");
     }
+  }
+
+  onTwitterLinkRemove(context) async {
+    try {
+      await dio.delete(
+          "/teachers/${teacherProfileState!.data!.teacher!.sId}/connects/${teacherProfileState!.data!.teacher!.connects!.first.sId}");
+      ToastService().s("Twitter link removed!");
+      Navigator.pop(context);
+      fetchTeacherProfile();
+      // ignore: empty_catches
+    } catch (err) {}
   }
 
   final GlobalKey<FormState> twitterKey = GlobalKey<FormState>();

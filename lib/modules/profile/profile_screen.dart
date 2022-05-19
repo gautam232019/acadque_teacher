@@ -133,6 +133,33 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
+    showTwitterRemoveModel() {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title:
+                const Text('Are you sure you want to remove your twitter url?'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              TextButton(
+                child: const Text('Remove'),
+                onPressed: () {
+                  state.onTwitterLinkRemove(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     onHourlyEdit(String field, String value) {
       return showDialog<bool>(
         context: context,
@@ -875,7 +902,15 @@ class ProfileScreen extends StatelessWidget {
                                   DividerLine(),
                                   InkWell(
                                     onTap: () {
-                                      showTwitterAddModel();
+                                      if (state.teacherProfileState!.data!
+                                                  .teacher!.connects !=
+                                              null &&
+                                          state.teacherProfileState!.data!
+                                              .teacher!.connects!.isNotEmpty) {
+                                        showTwitterRemoveModel();
+                                      } else {
+                                        showTwitterAddModel();
+                                      }
                                     },
                                     child: Container(
                                       height: 57,
